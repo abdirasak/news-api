@@ -31,7 +31,6 @@ describe("GET /api/topics", () => {
       .get("/api/topic")
       .expect(404)
       .then(({ body }) => {
-        //console.log(body, "comming From test");
         expect(body.msg).toBe("path not found");
       });
   });
