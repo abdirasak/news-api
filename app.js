@@ -6,7 +6,7 @@ app.use(express.json());
 
 app.get("/api/topics", getTopics);
 
-//path not found midlewaer
+//path not found middleware
 app.use((req, res, next) => {
   res.status(404).send({ msg: "path not found" });
 });
