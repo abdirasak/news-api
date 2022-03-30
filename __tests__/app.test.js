@@ -9,15 +9,30 @@ beforeEach(() => seed(testData));
 
 describe("GET /api/topics", () => {
   test("200: responds withh array of topics", () => {
-    return request(app).get("/api/topics").expect(200);
+    return request(app)
+      .get("/api/topics")
+      .expect(200)
+      .then(({ body }) => {
+        const { topics } = body;
+        expect(topics).toBeInstanceOf(Array);
+        topics.forEach((topic) => {
+          expect(topic).toEqual(
+            expect.objectContaining({
+              slug: expect.any(String),
+              description: expect.any(String),
+            })
+          );
+        });
+      });
   });
 
-  test("404: when pash is not found", () => {
+  test("404: when path is not found", () => {
     return request(app)
       .get("/api/topic")
       .expect(404)
       .then(({ body }) => {
-        expect(body.length > 0).toBe(false);
+        //console.log(body, "comming From test");
+        expect(body.msg).toBe("path not found");
       });
   });
 });
