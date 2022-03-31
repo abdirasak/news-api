@@ -36,3 +36,28 @@ describe("GET /api/topics", () => {
       });
   });
 });
+
+describe("GET /api/articles", () => {
+  test("200: responds withh array of articles", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toBeInstanceOf(Array);
+        expect(articles.length).toBe(12);
+        articles.forEach((topic) => {
+          expect(topic).toEqual(
+            expect.objectContaining({
+              title: expect.any(String),
+              topic: expect.any(String),
+              author: expect.any(String),
+              body: expect.any(String),
+              created_at: expect.any(Number),
+              votes: expect.any(Number),
+            })
+          );
+        });
+      });
+  });
+});
