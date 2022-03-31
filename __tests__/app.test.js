@@ -37,7 +37,7 @@ describe("GET /api/topics", () => {
   });
 });
 
-xdescribe("GET /api/articles", () => {
+describe("GET /api/articles", () => {
   test("200: responds withh array of articles", () => {
     return request(app)
       .get("/api/articles")
@@ -46,18 +46,28 @@ xdescribe("GET /api/articles", () => {
         const { articles } = body;
         expect(articles).toBeInstanceOf(Array);
         expect(articles.length).toBe(12);
-        articles.forEach((topic) => {
-          expect(topic).toEqual(
+        articles.forEach((article) => {
+          expect(article).toEqual(
             expect.objectContaining({
+              article_id: expect.any(Number),
               title: expect.any(String),
               topic: expect.any(String),
               author: expect.any(String),
               body: expect.any(String),
-              created_at: expect.any(Number),
+              created_at: expect.any(String),
               votes: expect.any(Number),
             })
           );
         });
+      });
+  });
+
+  test("404: when path is not found", () => {
+    return request(app)
+      .get("/api/artricle")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("path not found");
       });
   });
 });
