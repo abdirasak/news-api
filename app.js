@@ -1,10 +1,12 @@
 const express = require("express");
 const { getTopics } = require("./controllers/topics.controller");
+const { getUsers } = require("./controllers/users.controller");
 
 const app = express();
 app.use(express.json());
 
 app.get("/api/topics", getTopics);
+app.get("/api/users", getUsers);
 
 //path not found middleware
 app.use((req, res, next) => {

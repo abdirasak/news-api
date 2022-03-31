@@ -36,3 +36,35 @@ describe("GET /api/topics", () => {
       });
   });
 });
+
+describe("GET /api/users", () => {
+  test("200: responds withh array of users", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body }) => {
+        const { users } = body;
+        console.log(users);
+        expect(users).toBeInstanceOf(Array);
+        expect(users.length).toBe(4);
+        users.forEach((topic) => {
+          expect(topic).toEqual(
+            expect.objectContaining({
+              username: expect.any(String),
+              name: expect.any(String),
+              avatar_url: expect.any(String),
+            })
+          );
+        });
+      });
+  });
+
+  test("404: when path is not found", () => {
+    return request(app)
+      .get("/api/usr")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("path not found");
+      });
+  });
+});
