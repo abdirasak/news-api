@@ -14,7 +14,9 @@ describe("GET /api/topics", () => {
       .expect(200)
       .then(({ body }) => {
         const { topics } = body;
+        console.log(topics);
         expect(topics).toBeInstanceOf(Array);
+        expect(topics.length).toBe(3);
         topics.forEach((topic) => {
           expect(topic).toEqual(
             expect.objectContaining({
