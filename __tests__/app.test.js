@@ -37,7 +37,7 @@ describe("GET /api/topics", () => {
   });
 });
 
-describe("GET /api/articles", () => {
+xdescribe("GET /api/articles", () => {
   test("200: responds withh array of articles", () => {
     return request(app)
       .get("/api/articles")
