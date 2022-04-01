@@ -70,4 +70,12 @@ describe("GET /api/articles", () => {
         expect(body.msg).toBe("path not found");
       });
   });
+  test("/api/article to be sorted by date descending ", () => {
+    return request(app)
+      .get("/api/articles")
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toBeSortedBy("created_at", { descending: true });
+      });
+  });
 });
