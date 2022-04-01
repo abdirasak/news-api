@@ -2,3 +2,13 @@
 
 SELECT * FROM topics;
 SELECT * FROM users;
+SELECT * FROM artticles;
+SELECT * FROM comments;
+
+
+
+
+
+
+ 
+
